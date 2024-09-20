@@ -64,3 +64,12 @@ print(intro.find("Hi"))         # -1
 # www.google.com
 # ->naver, daum, google만 추출
 
+#1.
+emails=["cherry1004@gamil.com","cherry01@gmail.com","cherry0@gmail.com"]
+usernames = [emails[0].split('@')[0],emails[1].split('@')[0],emails[2].split('@')[0]]
+print(usernames)
+
+#2.
+urls = ["www.naver.com","www.daum.net","www.google.com"]
+domains = [urls[0].split('.')[1],urls[1].split('.')[1],urls[2].split('.')[1]]
+print(domains)
