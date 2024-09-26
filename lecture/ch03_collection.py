@@ -142,6 +142,12 @@ print(list(set(a)))
 a=10
 b=50
 #코드 작성
+temp=a
+a=b
+b=temp
+
+#
+a,b=b,a
 
 print(a)  # 50 출력
 print(b)  # 10 출력
