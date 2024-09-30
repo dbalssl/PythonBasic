@@ -21,3 +21,8 @@ print("Hello")
 # 숙제: for문으로 작성한 구구단2단을 while문으로 작성해보세요.
 for i in range(1,10):
     print(f"2x{i}={2*i}")
+
+i = 1
+while i < 10:
+    print(f"2x{i}={2*i}")
+    i += 1    
