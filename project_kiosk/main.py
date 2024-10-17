@@ -60,7 +60,7 @@ bakery_price = {
     3: 5000
 }
 
-order_list = []   # 고객 주문 기록
+order_list = []   # 고객 주문 기록 #[[메뉴, 가격], [메뉴, 가격],[메뉴, 가격], ...]
 
 while True:
     ## 1. 메인메뉴 출력
@@ -90,8 +90,26 @@ while True:
     #   결과: y/n
     #   y: 1번으로 이동
     #   n: 출력("주문 페이지로 이동합니다.")
-    
-    
-        
-    for item in order_list:
-        print(f"주문기록: {item}")
+    print(">> MSG: 추가 주문하시겠습니까?")
+    while True:
+        yn=input(">> y/n: ").lower()
+        if yn == "y":
+            break
+        elif yn == "n":
+            break
+        else:
+            print(">> WARNING: 올바른 값을 입력하세요.")
+    # 7. 추가 주문 y/n 선택      
+    if yn =="y":
+        continue #추가 주문 (다음 반복으로 넘기기)
+    elif yn == "n":
+        # 주문 내역 출력하기!
+        print("== 주문 내역 == ")
+        total=0
+        for i, item in enumerate(order_list):
+            total += item[1]
+            # item → [메뉴, 가격] / item[0]:메뉴 / item[1]: 가격
+            print(f"{i+1}.{item[0]}({item[1]}원)")  # 1. 아메리카(3000원)
+        print(f"고객님이 주문하신 메뉴는 총 {len(order_list)}건으로")
+        print(f"결제금액은 {total}원 입니다.")
+        print("이용해주셔서 감사합니다.")
