@@ -9,5 +9,5 @@ doc = BeautifulSoup(result.text, "html.parser")
 link_list = doc.select("ul.list_news2 a.link_txt")
 
 for i, link in enumerate(link_list):
-    print(f"{i+1}===================================")
+    print(f"{i+1}===========================================")
     get_news_info(link["href"])
