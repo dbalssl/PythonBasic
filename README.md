@@ -50,6 +50,37 @@
   2. 로컬 도커 
   3. 클라우드
 
+### 2-4. 데이터베이스 구조
+  1. DBMS(데이터베이스 관리 시스템) → MariaDB, MySQL, Oracle, PostgreSQL
+  2.  ㄴ Database → chosun
+  3.        ㄴ Table(표) → tbl_news
+
+  예) Database는 프로젝트 단위(일반적)
+  Database(쇼핑몰)
+      ㄴ Table(회원)
+      ㄴ Table(상품)
+      ㄴ Table(구매)
+      ㄴ Table(게시판)
+      ㄴ Table(고객센터)
+
+### 2-5. 데이터베이스 연결
+  - python ↔ Database
+  1. SQL 매핑: SQL작성해서 사용하는 방법
+  2. ORM(Object Realationship Mapping): 객체를 사용하는 방법
+  * 실무 → ORM 많이 사용
+            ㄴ SQL 복잡도 증가 한계 → SQL 매핑
+
+### 2-6. SQL 매핑
+  1. Connection 맺기(IP, PORT, ID, PW)
+     python - Database 연결(다리 건설)
+     → IP: 컴퓨터의 주소
+     → PORT: 프로그램마다 포트(3306)
+     → ID&PW: 인증
+  2. Worker 생성(Cursor 객체)
+  3. Job 생성(SQL 작성)
+  4. Execute(실행 → Worker+Job)
+  5. 결과
+
 ## 3. 도커
   - 컨테이너 가상화 기술을 사용할 수 있는 프로그램
   - 컨테이너를 사용하기 위해서는 → 도커엔진 + 도커이미지
