@@ -14,7 +14,7 @@ def connection():
             port=3306,
             user="root",
             password="mariadb",
-            database="chosum",
+            database="chosun",
             charset="utf8",
             autocommit=True,
             cursorclass=pymysql.cursors.DictCursor

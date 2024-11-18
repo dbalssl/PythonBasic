@@ -8,15 +8,16 @@ def insert_news(data: dict):
         # 2. Cursor 객체 생성(일꾼 생성)
         curs = conn.cursor()
         # 3. SQL 작성(일 생성)
-        sql = """
+        sql = '''
             INSERT INTO tbl_news(title, writer, content, regdate) 
             VALUES(%(title)s, %(writer)s, %(content)s, %(regdate)s);
-        """
+        '''
         # 4. Execute(실행)
         curs.execute(sql, data)
     except Exception as e:
         print(e)
     finally:
+        # 5. 자원 반납(curs, conn)
         if curs:
             curs.close()
         if conn and conn.open:
