@@ -3,21 +3,16 @@ from bs4 import BeautifulSoup
 from collect_dao import insert_news
 
 
-def collect_news(category:str):
-    page = 1
+def collect_news():
     count = 1 # 뉴스기사 수
-    while True:
-        url = f"https://news.daum.net/breakingnews/{category}?page={page}"
-        result = requests.get(url)
-        doc = BeautifulSoup(result.text, "html.parser")
-        link_list = doc.select("ul.list_news2 a.link_txt")
-        if len(link_list) == 0:
-            break
-        for link in link_list:
-            print(f"{count} ==============================================")
-            get_news_info(link["href"])
-            count+=1
-        page += 1
+    url = "https://news.daum.net/"
+    result = requests.get(url)
+    doc = BeautifulSoup(result.text, "html.parser")
+    link_list = doc.select("ul.list_newsbasic a.item_newsbasic")
+    for link in link_list:
+        print(f"{count} ==============================================")
+        get_news_info(link["href"])
+        count+=1
         
 
 def get_news_info(url: str):
