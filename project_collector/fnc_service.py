@@ -6,11 +6,13 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
+import pandas as pd
+
 
 
 options = Options()
-options.add_experimental_option("detach",True)
-# options.add_argument("headless")
+#options.add_experimental_option("detach",True)
+options.add_argument("headless") # 웹브라우저 (백그라운드)
 options.add_argument("disable-blink-features=AutomationControlled")
 options.add_experimental_option("useAutomationExtension", False)
 options.add_experimental_option("excludeSwitches",["enable-automation"])
@@ -23,25 +25,42 @@ def collect_news():
     driver.get(url)
     time.sleep(1)
     
-    # 숙제: 중복 방지 체크
-    #  1P(9개 기사) → Total 3P(27개 기사) → 1번 수집(27개 기사)
-    #  로직
-    #   1. 다음 기사 수집 URL과 url_lisit의 URL을 비교
-    #     → 있음(중복), 수집 멈춤
-    #     → 없음, 수집 계속
-    #   2. 기사 1건 수집 완료 → 해당 기사 URL을 url_list에 저장
+    
+    url_list = [] # 수집이 완료된 Link(URL)을 저장
+    flag = False
+    news_list = [] # 
     while True:
         # 9건의 기사 수집
         doc = BeautifulSoup(driver.page_source, "html.parser")
         link_list = doc.select("article.content-article ul.list_newsheadline2 a.item_newsheadline2")
         for link in link_list:
+            # 중복수집 체크
+            if link in url_list:
+                flag = True
+                break
             print(f"{count} ==============================================")
-            get_news_info(link["href"])
+            news = get_news_info(link["href"])
+            news_list.append(news)  # 수집한 데이터 로컬 저장
             count+=1
+            url_list.append(link) # 중복수집 방지를 위한 처리
+        if flag:
+            break
+        
+        
         # [새로운 뉴스] 버튼 클릭 이벤트
         driver.find_element(By.XPATH, '//*[@id="58d84141-b8dd-413c-9500-447b39ec29b9"]/div[2]/a').click()
         time.sleep(1)
-        
+    
+    # 수집한 데이터 27건 main으로 전달
+    #  1. DB활용
+    #   - DB(27건 저장) → SELECT 가져와서 전달
+    #  2. 수집시 수집데이터를 따로 저장 후 전달
+    #   - 
+    # news_list → [{news1}, {news2}, {news3}, {news4}, ... , {news27}]
+    # "pandas"의 DataFrame(표) Type으로 news_list 변환
+    col_name = ["title", "writer", "content", "regdate"]
+    df_news = pd.DataFrame(news_list, columns=col_name)  # DataFrame(표) 변환
+    return df_news, count    
 
 def get_news_info(url: str):
     result = requests.get(url)
@@ -75,7 +94,6 @@ def get_news_info(url: str):
         "content": content,
         "regdate": reg_date,
     }
-    #insert_news(data)
+    insert_news(data)
+    return data
     
-    
-collect_news()
