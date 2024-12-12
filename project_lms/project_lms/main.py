@@ -120,7 +120,10 @@ def main_page():
         if st.button("수정"):
             navigate_to("update")
         if st.button("삭제"):
-            pass
+            # 삭제시 유일하게 식별할 수 있는 값을 사용해서 조건을 주기
+            book_service.delete_book(book_isbn) # DB에서 해당 ISBN의 도서를 삭제
+            navigate_to("main") # refresh → 도서 삭제후 최신화된 정보 출력
+            # TIP: INSERT(등록), UPDATE(수정), DELETE(삭제) 반드시 refresh
 
     
 def insert_page():
